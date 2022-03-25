@@ -1,0 +1,28 @@
+---
+stages:
+  - build
+  - docker
+  - trigers
+
+
+####
+####   STAGE - BUILD
+####
+
+#1-1
+build_node_js:
+  stage: build
+  image: 10.78.30.78:5000/my-node
+  script:
+    - pwd
+    - ls
+    - npm install
+    - ng build --output-path=dist
+    - tar -cvf dist.tar ./dist
+    - ls
+  artifacts:
+    name: dist.tar
+    paths:
+    -  ./dist.tar
+    expire_in: 1 days
+  allow_failure: false
